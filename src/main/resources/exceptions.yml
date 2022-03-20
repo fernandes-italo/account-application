@@ -1,6 +1,0 @@
-exception:
-    account:
-        not-found-message: "Conta não encontrada."
-        not-found-description: "Não foi possível encontrar a conta corrente informada."
-        without-balance-message: "Saldo insuficiente."
-        without-balance-description: "Não foi possível efetuar o débito, o saldo da conta informada é insuficiente."

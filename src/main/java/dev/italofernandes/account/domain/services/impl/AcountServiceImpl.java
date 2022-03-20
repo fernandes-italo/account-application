@@ -18,16 +18,16 @@ public class AcountServiceImpl implements AccountService {
 
     private final AccountRepository accountRepository;
 
-    @Value("${exception.account.not-found-message}")
+    @Value("${exceptions.account.not-found-message}")
     private String accountNotFoundMessage;
 
-    @Value("${exception.account.not-found-description}")
+    @Value("${exceptions.account.not-found-description}")
     private String accountNotFoundDescription;
 
-    @Value("${exception.account.without-balance-message}")
+    @Value("${exceptions.account.without-balance-message}")
     private String accountWithoutBalanceMessage;
 
-    @Value("${exception.account.without-balance-description}")
+    @Value("${exceptions.account.without-balance-description}")
     private String accountWithoutBalanceDescription;
 
     @Override
