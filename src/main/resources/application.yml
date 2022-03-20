@@ -1,0 +1,28 @@
+
+server:
+  port: 8381
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS
+
+spring:
+  application:
+    name: ms-account
+  datasource:
+    url: jdbc:h2:mem:ms-account
+    username: sa
+    password: password
+  jpa:
+    database: h2
+    hibernate:
+      ddl-auto: create
+    defer-datasource-initialization: true
+  h2:
+    console:
+      enabled: true
