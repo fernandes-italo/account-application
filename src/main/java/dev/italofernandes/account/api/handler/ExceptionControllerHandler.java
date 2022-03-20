@@ -19,37 +19,35 @@ public class ExceptionControllerHandler {
     @ExceptionHandler(AccountNotFoundException.class)
     public ResponseEntity<ErrorMessageResponse> accountNotFound(AccountNotFoundException exception) {
 
-        ErrorMessageResponse errorMessageResponse = new ErrorMessageResponse(
-                HttpStatus.NOT_FOUND.value(),
-                Instant.now(),
-                exception.getMessage(),
-                exception.getDescription());
-
-        return new ResponseEntity<>(errorMessageResponse, HttpStatus.NOT_FOUND);
+        return this.getErrorMessageResponse(exception.getMessage(), exception.getDescription(),
+                HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(AccountWithoutBalanceException.class)
     public ResponseEntity<ErrorMessageResponse> accountWithoutBalance(AccountWithoutBalanceException exception) {
 
-        ErrorMessageResponse errorMessageResponse = new ErrorMessageResponse(
-                HttpStatus.BAD_REQUEST.value(),
-                Instant.now(),
-                exception.getMessage(),
-                exception.getDescription());
+        return this.getErrorMessageResponse(exception.getMessage(), exception.getDescription(),
+                HttpStatus.BAD_REQUEST);
 
-        return new ResponseEntity<>(errorMessageResponse, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(RuntimeException.class)
-    public ResponseEntity<ErrorMessageResponse> errorDefault(RuntimeException exception) {
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ErrorMessageResponse> errorDefault(Exception exception) {
+
+        return this.getErrorMessageResponse(exception.getMessage(), ERROR_MESSAGE_DEFAULT,
+                HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    private ResponseEntity<ErrorMessageResponse> getErrorMessageResponse(String message, String description,
+            HttpStatus httpStatus) {
 
         ErrorMessageResponse errorMessageResponse = new ErrorMessageResponse(
-                HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                httpStatus.value(),
                 Instant.now(),
-                exception.getMessage(),
-                ERROR_MESSAGE_DEFAULT);
+                message,
+                description);
 
-        return new ResponseEntity<>(errorMessageResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(errorMessageResponse, httpStatus);
     }
 
 }
